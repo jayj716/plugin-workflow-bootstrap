@@ -368,8 +368,9 @@ if $NO_TDD; then
 else
   case "$RUNTIME" in
     claude|none)
-      note "Claude Code의 TDD는 Superpowers 플러그인이 강제합니다 (대화형 설치)."
-      printf '      Claude Code 세션에서 실행:\n'
+      note "Claude Code의 TDD는 Superpowers 플러그인이 강제합니다."
+      note "spec-driven-workflow v0.2.0+ 설치 시 의존성으로 자동 설치됩니다."
+      printf '      자동 설치가 안 됐다면 Claude Code 세션에서 수동 설치:\n'
       printf '        /plugin install superpowers@claude-plugins-official\n'
       printf '        (또는: /plugin marketplace add obra/superpowers-marketplace\n'
       printf '               → /plugin install superpowers@superpowers-marketplace)\n'

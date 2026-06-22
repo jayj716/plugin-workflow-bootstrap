@@ -59,8 +59,11 @@ claude --plugin-dir ~/spec-driven-workflow
 2. `.claude-plugin/marketplace.json` 추가 (plugins 배열에 이 플러그인 등록, `source: "./"`)
 3. 팀원: `/plugin marketplace add <repo-url>` → `/plugin install spec-driven-workflow@<marketplace>`
 
-## 의존(선택)
+## 의존성
 
-- `agentic-coding-workflow`의 슬래시 커맨드(`/opsx:*`)는 **OpenSpec**이 자체 설치한다(`openspec init`/`update`).
-  이 플러그인은 방법론·문서·bootstrap을 제공하고, OpenSpec 도구 자체는 번들하지 않는다.
-- TDD 규율(Superpowers)은 Claude Code 플러그인으로 별도 설치(온보딩 문서 §3.3 참조).
+- **Superpowers (자동 설치)** — TDD 규율(RED→GREEN→REFACTOR)을 강제하는 플러그인. `plugin.json`의
+  `dependencies`에 `superpowers@claude-plugins-official`로 선언돼 있어, 이 플러그인을 설치하면 **함께 자동 설치**된다.
+  (Claude Code v2.1.110+ 필요. 다른 마켓플레이스라 `marketplace.json`의 `allowCrossMarketplaceDependenciesOn`도 선언됨.)
+  자동 설치가 안 되면 수동으로: `/plugin install superpowers@claude-plugins-official`.
+- **OpenSpec (별도)** — `agentic-coding-workflow`의 `/opsx:*` 슬래시 커맨드는 OpenSpec이 자체 설치한다
+  (`openspec init`/`update`, 또는 번들 `/bootstrap`). 이 플러그인은 방법론·문서·bootstrap만 제공하고 OpenSpec 도구 자체는 번들하지 않는다.

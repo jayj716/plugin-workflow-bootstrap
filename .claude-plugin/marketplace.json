@@ -5,11 +5,14 @@
     "name": "오태훈",
     "email": "wg.jeong716@gmail.com"
   },
+  "allowCrossMarketplaceDependenciesOn": [
+    "claude-plugins-official"
+  ],
   "plugins": [
     {
       "name": "spec-driven-workflow",
       "description": "아이디어 기획(idea-to-plan) + 스펙주도 코딩 방법론(OpenSpec+TDD) 워크플로우",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "author": { "name": "오태훈", "email": "wg.jeong716@gmail.com" },
       "source": "./",
       "category": "development"
