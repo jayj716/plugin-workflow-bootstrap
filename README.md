@@ -44,12 +44,12 @@ spec-driven-workflow/                       # = 저장소 = 마켓플레이스
 ## 설치
 
 하나의 저장소를 **Claude Code · Codex · Cursor 플러그인**, 그리고 **`npx skills`** 로 설치할 수 있다.
-공통 저장소 URL: `http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git`
+**공개 GitHub 저장소**라 `owner/repo` 단축경로가 그대로 통한다 — 저장소: **`jayj716/plugin-workflow-bootstrap`** (https://github.com/jayj716/plugin-workflow-bootstrap).
 
 ### Claude Code (권장 · 팀원용)
 
 ```bash
-claude plugin marketplace add http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
+claude plugin marketplace add jayj716/plugin-workflow-bootstrap
 claude plugin install spec-driven-workflow@agentic-coding-workflow
 ```
 
@@ -57,16 +57,16 @@ claude plugin install spec-driven-workflow@agentic-coding-workflow
 `idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor` 가 활성화되고, 의존성인 **Superpowers**도 자동 설치된다.
 
 - 각 명령은 `~/.claude/settings.json`에 영구 기록되어 이후 모든 세션에서 자동 로드된다.
-- 식별자: `spec-driven-workflow@agentic-coding-workflow`. 전제: GitLab clone 권한, Claude Code **v2.1.110+**(의존성 자동설치).
+- 식별자: `spec-driven-workflow@agentic-coding-workflow` (마켓플레이스 이름은 저장소명과 별개). 전제: Claude Code **v2.1.110+**(의존성 자동설치).
 
 > 처음이라면 설치 후 **`/onboarding`** 으로 대화형 학습부터 시작하면 좋다.
 
 ### Codex
 
-`codex plugin marketplace add` 는 HTTPS/SSH Git URL을 그대로 받는다(GitHub 불필요):
+`codex plugin marketplace add` 는 `owner/repo`·HTTPS·SSH 를 모두 받는다:
 
 ```bash
-codex plugin marketplace add http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
+codex plugin marketplace add jayj716/plugin-workflow-bootstrap
 codex plugin add spec-driven-workflow@agentic-coding-workflow
 ```
 
@@ -77,21 +77,16 @@ Codex는 `.agents/plugins/marketplace.json` 카탈로그를 읽어 `plugins/spec
 
 Cursor 2.5부터 플러그인 마켓플레이스를 지원한다(`.cursor-plugin/marketplace.json` 카탈로그 + `plugins/spec-driven-workflow/.cursor-plugin/plugin.json`, 같은 `skills/`·`commands/` 재사용). 설치는 **에디터 GUI**로 한다:
 
-- 에디터에서 `/add-plugin` 실행, 또는 `cursor.com/marketplace`에서 추가.
+- 에디터에서 `/add-plugin` 실행, 또는 `cursor.com/marketplace`에서 추가. 공개 GitHub 저장소이므로 git 소스로 추가를 시도할 수 있다.
 
-> ⚠️ 두 가지 주의:
-> 1) Cursor는 CLI 설치 명령이 없어(GUI 앱) 이 매니페스트는 **공식 스키마대로 구성**했으나 로컬에서 설치 검증은 못 했다 — Cursor 2.5+ 에디터에서 확인 필요.
-> 2) 사내 GitLab 같은 **비공개 git 소스**를 Cursor가 커스텀 마켓플레이스로 받아주는지는 환경에 따라 다르다. 안 되면 아래 **`npx skills`** 로 Cursor에 스킬을 바로 설치하면 된다(`~/.cursor/skills`).
+> ⚠️ Cursor는 CLI 설치 명령이 없어(GUI 앱) 이 매니페스트는 **공식 스키마대로 구성**했으나 로컬에서 설치 검증은 못 했다 — Cursor 2.5+ 에디터에서 확인 필요. 잘 안 되면 아래 **`npx skills`** 로 Cursor에 스킬을 바로 설치하면 된다(`~/.cursor/skills`).
 
 ### 그 외 에이전트 — `npx skills` (Vercel Labs)
 
-[`skills` CLI](https://github.com/vercel-labs/skills)는 저장소의 `SKILL.md`들을 읽어 설치 에이전트(.claude/skills, .agents/skills 등)에 넣는다.
-스킬(`idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor`)만 가볍게 쓰고 싶을 때:
+[`skills` CLI](https://github.com/vercel-labs/skills)는 저장소의 `SKILL.md`들을 읽어 설치 에이전트(.claude/skills, .agents/skills, ~/.cursor/skills 등)에 넣는다. 스킬 3종만 가볍게 쓰고 싶을 때:
 
 ```bash
-# 저장소를 받아 로컬 경로로 설치 (사내 GitLab은 GitHub 단축경로가 안 되므로 clone 후 로컬 경로 권장)
-git clone http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
-npx skills add ./agentic-coding-workflow/plugins/spec-driven-workflow   # 스킬·에이전트 대화형 선택 (--list 목록, -y 비대화형, --global 전역)
+npx skills add jayj716/plugin-workflow-bootstrap   # 스킬·에이전트 대화형 선택 (--list 목록, -y 비대화형, --global 전역)
 ```
 
 > `npx skills` 는 SKILL.md만 설치한다(커맨드·bootstrap·의존성 제외). 전체 워크플로우는 Claude/Codex 플러그인 설치를 권장.
