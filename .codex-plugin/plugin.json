@@ -16,5 +16,13 @@
     "workflow"
   ],
   "skills": "./skills/",
-  "commands": "./commands/"
+  "commands": "./commands/",
+  "interface": {
+    "displayName": "Spec-Driven Workflow",
+    "shortDescription": "아이디어 기획 → 스펙주도 구현 워크플로우",
+    "longDescription": "막연한 아이디어를 PRD·기능명세·유저플로우·와이어프레임으로 구체화하고, OpenSpec(What)+TDD(How)로 구현까지 잇는 스펙주도 워크플로우.",
+    "developerName": "오태훈",
+    "category": "Productivity",
+    "capabilities": ["Instructions"]
+  }
 }

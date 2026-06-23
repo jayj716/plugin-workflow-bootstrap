@@ -1,0 +1,19 @@
+{
+  "name": "agentic-coding-workflow",
+  "interface": {
+    "displayName": "Agentic Coding Workflow"
+  },
+  "plugins": [
+    {
+      "name": "spec-driven-workflow",
+      "source": {
+        "source": "local",
+        "path": "."
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
