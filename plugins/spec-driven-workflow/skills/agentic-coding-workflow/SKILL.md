@@ -35,13 +35,13 @@ description: >-
 
 | 단계 | 트리거 | 산출물 | 통과 게이트 |
 |---|---|---|---|
-| 0 탐색 | `/opsx:explore` | 문제 정의·결정 노트 | "무엇을" 한 문장 |
+| 0 탐색 | `/opsx:explore` 또는 `/plan`(확장 기획) | 문제 정의·결정 노트 (또는 PRD~와이어프레임) | "무엇을" 한 문장 |
 | 1 명세 | `/opsx:propose` | `changes/{slug}/` (proposal·specs(EARS)·tasks) | 사람의 **동결 서명** |
 | 2 구현 | `/opsx:apply` + TDD | RED→GREEN→REFACTOR 커밋 | 모든 task `[x]`, green |
 | 3 검증 | `/opsx:verify` | 테스트 green·리뷰 | 명세 일치 확인 |
 | 4 보관 | `/opsx:archive` | 정식 `specs/` 승격 | `archive/`로 이동 |
 
-> 이 스킬의 **앞단**(제품 차원 기획: PRD·기능명세·유저플로우·와이어프레임)은 같은 플러그인의 **`idea-to-plan` 스킬**이 담당한다. 기획 산출물의 상세기능이 여기 1단계의 EARS 요구사항으로 내려온다.
+> **단계 0(탐색) ↔ idea-to-plan 관계:** 같은 플러그인의 **`idea-to-plan` 스킬**(`/plan`)은 단계 0 탐색을 *확장*한 제품 기획 레이어다(PRD·기능명세·유저플로우·와이어프레임). `/plan`으로 기획을 마쳤다면 탐색은 끝난 것이므로 **`/opsx:explore`를 건너뛰고** 단계 1(`/opsx:propose`)로 간다. 반대로 제품 기획이 필요 없는 가벼운 변경 하나면 `/plan` 없이 `/opsx:explore`만 써도 된다(둘은 형제 진입점). 기획 산출물의 **상세기능**이 단계 1의 EARS 요구사항으로 내려온다.
 
 ## 불가침 원칙 (가드레일)
 
