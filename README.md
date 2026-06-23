@@ -24,10 +24,12 @@ manyfast의 "Manny" 기획 흐름과 OpenSpec/Superpowers 워크플로우를 하
 spec-driven-workflow/                       # = 저장소 = 마켓플레이스
 ├── .claude-plugin/marketplace.json         # Claude 마켓플레이스 카탈로그
 ├── .agents/plugins/marketplace.json        # Codex 마켓플레이스 카탈로그
+├── .cursor-plugin/marketplace.json         # Cursor 마켓플레이스 카탈로그
 ├── README.md
-└── plugins/spec-driven-workflow/           # 플러그인 본체 (Claude·Codex 공용 단일 소스)
+└── plugins/spec-driven-workflow/           # 플러그인 본체 (Claude·Codex·Cursor 공용 단일 소스)
     ├── .claude-plugin/plugin.json
     ├── .codex-plugin/plugin.json
+    ├── .cursor-plugin/plugin.json
     ├── skills/
     │   ├── idea-to-plan/            # 기획 파이프라인 (SKILL.md + references 6종)
     │   ├── agentic-coding-workflow/ # 방법론 (SKILL.md + references 2종)
@@ -36,12 +38,12 @@ spec-driven-workflow/                       # = 저장소 = 마켓플레이스
     └── scripts/bootstrap.sh
 ```
 
-> 두 마켓플레이스 카탈로그(`.claude-plugin/marketplace.json`·`.agents/plugins/marketplace.json`)가 모두
-> `./plugins/spec-driven-workflow` 한 곳을 가리켜, Claude·Codex가 **같은 소스**를 공유한다.
+> 세 마켓플레이스 카탈로그(Claude `.claude-plugin/` · Codex `.agents/plugins/` · Cursor `.cursor-plugin/`)가 모두
+> `plugins/spec-driven-workflow` 한 곳을 가리켜, 세 플랫폼이 **같은 소스**를 공유한다(중복 없음).
 
 ## 설치
 
-하나의 저장소를 **Claude Code 플러그인 · Codex 플러그인 · `npx skills`** 세 가지로 설치할 수 있다.
+하나의 저장소를 **Claude Code · Codex · Cursor 플러그인**, 그리고 **`npx skills`** 로 설치할 수 있다.
 공통 저장소 URL: `http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git`
 
 ### Claude Code (권장 · 팀원용)
@@ -70,6 +72,16 @@ codex plugin add spec-driven-workflow@agentic-coding-workflow
 
 Codex는 `.agents/plugins/marketplace.json` 카탈로그를 읽어 `plugins/spec-driven-workflow`(같은 소스)를 설치한다.
 (Codex의 TDD 규율은 Superpowers가 아니라 `/bootstrap` 이 깔아 주는 `AGENTS.md` 규칙으로 강제되므로, Codex 플러그인엔 Superpowers 의존성이 없다.)
+
+### Cursor (2.5+)
+
+Cursor 2.5부터 플러그인 마켓플레이스를 지원한다(`.cursor-plugin/marketplace.json` 카탈로그 + `plugins/spec-driven-workflow/.cursor-plugin/plugin.json`, 같은 `skills/`·`commands/` 재사용). 설치는 **에디터 GUI**로 한다:
+
+- 에디터에서 `/add-plugin` 실행, 또는 `cursor.com/marketplace`에서 추가.
+
+> ⚠️ 두 가지 주의:
+> 1) Cursor는 CLI 설치 명령이 없어(GUI 앱) 이 매니페스트는 **공식 스키마대로 구성**했으나 로컬에서 설치 검증은 못 했다 — Cursor 2.5+ 에디터에서 확인 필요.
+> 2) 사내 GitLab 같은 **비공개 git 소스**를 Cursor가 커스텀 마켓플레이스로 받아주는지는 환경에 따라 다르다. 안 되면 아래 **`npx skills`** 로 Cursor에 스킬을 바로 설치하면 된다(`~/.cursor/skills`).
 
 ### 그 외 에이전트 — `npx skills` (Vercel Labs)
 
@@ -108,9 +120,10 @@ claude --plugin-dir ~/spec-driven-workflow/plugins/spec-driven-workflow
 이 저장소가 곧 마켓플레이스다. 두 카탈로그가 `./plugins/spec-driven-workflow`를 가리킨다. 고친 뒤:
 
 ```bash
-# 1) 버전을 올린다 — 세 곳을 같은 값으로:
+# 1) 버전을 올린다 — 네 곳을 같은 값으로:
 #    plugins/spec-driven-workflow/.claude-plugin/plugin.json
 #    plugins/spec-driven-workflow/.codex-plugin/plugin.json
+#    plugins/spec-driven-workflow/.cursor-plugin/plugin.json
 #    .claude-plugin/marketplace.json (plugins[].version)
 # 2) 커밋 & push
 git commit -am "vX.Y.Z: ..." && git push

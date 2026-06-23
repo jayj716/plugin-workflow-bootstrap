@@ -1,0 +1,18 @@
+{
+  "name": "agentic-coding-workflow",
+  "owner": {
+    "name": "오태훈",
+    "email": "th.oh@okestro.com"
+  },
+  "metadata": {
+    "description": "Agentic Coding Workflow — 스펙주도 기획·코딩 워크플로우 플러그인 마켓플레이스"
+  },
+  "plugins": [
+    {
+      "name": "spec-driven-workflow",
+      "source": "plugins/spec-driven-workflow",
+      "description": "아이디어 기획(idea-to-plan) + 스펙주도 코딩 방법론(OpenSpec+TDD) + 대화형 온보딩 워크플로우",
+      "category": "productivity"
+    }
+  ]
+}

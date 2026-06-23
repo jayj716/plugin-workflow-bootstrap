@@ -12,7 +12,7 @@
     {
       "name": "spec-driven-workflow",
       "description": "아이디어 기획(idea-to-plan) + 스펙주도 코딩 방법론(OpenSpec+TDD) 워크플로우",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "author": { "name": "오태훈", "email": "th.oh@okestro.com" },
       "source": "./plugins/spec-driven-workflow",
       "category": "development"
