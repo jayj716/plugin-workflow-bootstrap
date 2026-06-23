@@ -1,6 +1,6 @@
 {
   "name": "spec-driven-workflow",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "아이디어 → PRD·기능명세·유저플로우·와이어프레임 기획(idea-to-plan)부터 OpenSpec(What)+TDD(How) 스펙주도 코딩 방법론까지 묶은 워크플로우. (Codex)",
   "author": {
     "name": "오태훈",

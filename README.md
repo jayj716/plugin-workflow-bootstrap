@@ -146,4 +146,5 @@ claude plugin update spec-driven-workflow@agentic-coding-workflow   # → 재시
 
 - **Agentic Coding Workflow (방법론·문서)** — **정원규 팀장님**이 설계·구성·작성.
   OpenSpec(What) + Superpowers TDD(How)로 "무엇을/어떻게"를 분리하고, 진행 상황은 별도 보드 없이 산출물(폴더·`tasks.md`·커밋)에서 읽는 스펙주도 워크플로우다.
-  (`plugins/spec-driven-workflow/skills/agentic-coding-workflow/references/` 의 문서 2종 `Agentic-Coding-Workflow.md`·`Agentic-Workflow-Onboarding.md` 가 원본.)
+  - **원본(upstream):** [`jayj716/scm-agentic-workflow`](https://github.com/jayj716/scm-agentic-workflow) 의 [`docs/`](https://github.com/jayj716/scm-agentic-workflow/tree/main/docs) — `Agentic-Coding-Workflow.md` · `Agentic-Workflow-Onboarding.md` (비공개 저장소, 접근 권한 필요).
+  - 이 플러그인은 그 원본 문서의 **사본**을 `plugins/spec-driven-workflow/skills/agentic-coding-workflow/references/` 에 번들해, 설치 시 함께 따라오도록 한다. 방법론의 정본(SOT)은 upstream이며, 변경은 거기서 시작해 이 사본으로 반영한다.
