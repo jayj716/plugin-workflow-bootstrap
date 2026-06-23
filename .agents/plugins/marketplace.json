@@ -8,11 +8,10 @@
       "name": "spec-driven-workflow",
       "source": {
         "source": "local",
-        "path": "."
+        "path": "./plugins/spec-driven-workflow"
       },
       "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "NONE"
+        "installation": "AVAILABLE"
       },
       "category": "Productivity"
     }
