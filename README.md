@@ -22,7 +22,8 @@ manyfast의 "Manny" 기획 흐름과 OpenSpec/Superpowers 워크플로우를 하
 
 ```
 spec-driven-workflow/
-├── .claude-plugin/{plugin.json, marketplace.json}
+├── .claude-plugin/{plugin.json, marketplace.json}   # Claude Code
+├── .codex-plugin/plugin.json                        # Codex (같은 skills/·commands/ 재사용)
 ├── skills/
 │   ├── idea-to-plan/            # 기획 파이프라인 (SKILL.md + references 6종)
 │   ├── agentic-coding-workflow/ # 방법론 (SKILL.md + references 2종)
@@ -34,9 +35,10 @@ spec-driven-workflow/
 
 ## 설치
 
-### git 마켓플레이스로 설치 (권장 · 팀원용)
+하나의 저장소를 **Claude Code 플러그인 · Codex 플러그인 · `npx skills`** 세 가지로 설치할 수 있다.
+공통 저장소 URL: `http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git`
 
-사내 GitLab 저장소를 마켓플레이스로 등록한 뒤 설치한다. 두 줄이면 끝:
+### Claude Code (권장 · 팀원용)
 
 ```bash
 claude plugin marketplace add http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
@@ -46,11 +48,35 @@ claude plugin install spec-driven-workflow@agentic-coding-workflow
 그다음 **Claude 재시작**. 설치되면 커맨드 `/plan`·`/bootstrap`·`/onboarding` 과 스킬
 `idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor` 가 활성화되고, 의존성인 **Superpowers**도 자동 설치된다.
 
-- 두 명령은 각자 `~/.claude/settings.json`에 영구 기록되어 이후 모든 세션에서 자동 로드된다.
-- 식별자 형식: `플러그인명@마켓플레이스명` = `spec-driven-workflow@agentic-coding-workflow`.
-- 전제: 사내 GitLab을 `git clone` 할 수 있는 권한(같은 자격증명으로 `marketplace add`도 동작). Claude Code **v2.1.110+** (의존성 자동설치용).
+- 각 명령은 `~/.claude/settings.json`에 영구 기록되어 이후 모든 세션에서 자동 로드된다.
+- 식별자: `spec-driven-workflow@agentic-coding-workflow`. 전제: GitLab clone 권한, Claude Code **v2.1.110+**(의존성 자동설치).
 
 > 처음이라면 설치 후 **`/onboarding`** 으로 대화형 학습부터 시작하면 좋다.
+
+### Codex
+
+`codex plugin marketplace add` 는 HTTPS/SSH Git URL을 그대로 받는다(GitHub 불필요):
+
+```bash
+codex plugin marketplace add http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
+codex plugin add spec-driven-workflow@agentic-coding-workflow
+```
+
+`.codex-plugin/plugin.json` 매니페스트가 같은 `skills/`·`commands/`를 가리킨다. (Codex의 TDD 규율은 Superpowers가 아니라
+`/bootstrap` 이 깔아 주는 `AGENTS.md` 규칙으로 강제되므로, Codex 플러그인엔 Superpowers 의존성이 없다.)
+
+### 그 외 에이전트 — `npx skills` (Vercel Labs)
+
+[`skills` CLI](https://github.com/vercel-labs/skills)는 저장소의 `SKILL.md`들을 읽어 설치 에이전트(.claude/skills, .agents/skills 등)에 넣는다.
+스킬(`idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor`)만 가볍게 쓰고 싶을 때:
+
+```bash
+# 저장소를 받아 로컬 경로로 설치 (사내 GitLab은 GitHub 단축경로가 안 되므로 clone 후 로컬 경로 권장)
+git clone http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
+npx skills add ./agentic-coding-workflow          # 설치할 스킬·에이전트를 대화형 선택 (--list 로 목록, -y 로 비대화형, --global 로 전역)
+```
+
+> `npx skills` 는 SKILL.md만 설치한다(커맨드·bootstrap·의존성 제외). 전체 워크플로우는 Claude/Codex 플러그인 설치를 권장.
 
 ### 로컬 개발 (플러그인을 직접 편집할 때)
 
