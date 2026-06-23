@@ -32,21 +32,35 @@ spec-driven-workflow/
 └── README.md
 ```
 
-## 설치 (로컬 개발)
+## 설치
 
-플러그인 디렉터리를 직접 로드한다 — 마켓플레이스 없이 어디서든:
+### git 마켓플레이스로 설치 (권장 · 팀원용)
+
+사내 GitLab 저장소를 마켓플레이스로 등록한 뒤 설치한다. 두 줄이면 끝:
+
+```bash
+claude plugin marketplace add http://gitlab.prd.console.trombone.okestro.cloud/th.oh/agentic-coding-workflow.git
+claude plugin install spec-driven-workflow@agentic-coding-workflow
+```
+
+그다음 **Claude 재시작**. 설치되면 커맨드 `/plan`·`/bootstrap`·`/onboarding` 과 스킬
+`idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor` 가 활성화되고, 의존성인 **Superpowers**도 자동 설치된다.
+
+- 두 명령은 각자 `~/.claude/settings.json`에 영구 기록되어 이후 모든 세션에서 자동 로드된다.
+- 식별자 형식: `플러그인명@마켓플레이스명` = `spec-driven-workflow@agentic-coding-workflow`.
+- 전제: 사내 GitLab을 `git clone` 할 수 있는 권한(같은 자격증명으로 `marketplace add`도 동작). Claude Code **v2.1.110+** (의존성 자동설치용).
+
+> 처음이라면 설치 후 **`/onboarding`** 으로 대화형 학습부터 시작하면 좋다.
+
+### 로컬 개발 (플러그인을 직접 편집할 때)
+
+마켓플레이스 없이 소스 디렉터리를 그대로 로드한다:
 
 ```bash
 claude --plugin-dir ~/spec-driven-workflow
 ```
 
-이미 실행 중인 세션에서 플러그인을 고쳤다면:
-
-```
-/reload-plugins
-```
-
-설치되면 `/plan`, 그리고 `idea-to-plan`·`agentic-coding-workflow` 스킬이 활성화된다.
+세션 중 소스를 고쳤으면 `/reload-plugins`(편집분 반영; 새 커맨드 추가는 재시작 필요).
 
 ## 사용
 
@@ -57,11 +71,24 @@ claude --plugin-dir ~/spec-driven-workflow
 또는 그냥 자연어로 "이런 아이디어가 있는데 기획해줘"라고 하면 `idea-to-plan` 스킬이 트리거된다.
 기획이 끝나면 "이제 구현하자"로 `agentic-coding-workflow`(OpenSpec/TDD)로 넘어간다.
 
-## 팀 배포 (나중에 — git 마켓플레이스)
+## 릴리스 / 업데이트
 
-1. 이 디렉터리를 git 저장소로 만들어 push
-2. `.claude-plugin/marketplace.json` 추가 (plugins 배열에 이 플러그인 등록, `source: "./"`)
-3. 팀원: `/plugin marketplace add <repo-url>` → `/plugin install spec-driven-workflow@<marketplace>`
+이 저장소가 곧 마켓플레이스다(`.claude-plugin/marketplace.json`, `source: "./"`). 고친 뒤:
+
+```bash
+# 1) plugin.json + marketplace.json 의 version 을 올린다 (예: 0.3.1 → 0.3.2)
+# 2) 커밋 & push
+git commit -am "vX.Y.Z: ..." && git push
+```
+
+> ⚠️ **version bump 필수.** 캐시가 버전별로 고정되어, 버전을 올리지 않으면 팀원에게 갱신이 가지 않는다.
+
+**팀원 업데이트:**
+
+```bash
+claude plugin marketplace update agentic-coding-workflow
+claude plugin update spec-driven-workflow@agentic-coding-workflow   # → 재시작
+```
 
 ## 의존성
 
