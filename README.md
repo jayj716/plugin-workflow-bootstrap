@@ -98,3 +98,9 @@ claude plugin update spec-driven-workflow@agentic-coding-workflow   # → 재시
   자동 설치가 안 되면 수동으로: `/plugin install superpowers@claude-plugins-official`.
 - **OpenSpec (별도)** — `agentic-coding-workflow`의 `/opsx:*` 슬래시 커맨드는 OpenSpec이 자체 설치한다
   (`openspec init`/`update`, 또는 번들 `/bootstrap`). 이 플러그인은 방법론·문서·bootstrap만 제공하고 OpenSpec 도구 자체는 번들하지 않는다.
+
+## 크레딧
+
+- **Agentic Coding Workflow (방법론·문서)** — **정원규 팀장님**이 설계·구성·작성.
+  OpenSpec(What) + Superpowers TDD(How)로 "무엇을/어떻게"를 분리하고, 진행 상황은 별도 보드 없이 산출물(폴더·`tasks.md`·커밋)에서 읽는 스펙주도 워크플로우다.
+  (`skills/agentic-coding-workflow/references/` 의 문서 2종 `Agentic-Coding-Workflow.md`·`Agentic-Workflow-Onboarding.md` 가 원본.)
