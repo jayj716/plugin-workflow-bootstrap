@@ -14,16 +14,20 @@ manyfast의 "Manny" 기획 흐름과 OpenSpec/Superpowers 워크플로우를 하
 |---|---|---|
 | Skill | **idea-to-plan** | 대화형 인터뷰 → PRD·기능명세서·유저플로우·와이어프레임 4종 생성, 변경 전파로 정합성 유지 |
 | Skill | **agentic-coding-workflow** | OpenSpec(What)+Superpowers TDD(How) 스펙주도 방법론. 방법론 문서 2종 + 온보딩 번들 |
+| Skill | **workflow-tutor** | 처음 쓰는 사람을 위한 **대화형 온보딩** — 구조·사용법을 모듈별로 가르침 |
 | Command | **/plan** | idea-to-plan 진입점 |
+| Command | **/bootstrap** | 셋업 스크립트 실행(인자 없으면 dry-run 먼저) |
+| Command | **/onboarding** | workflow-tutor 진입점 (대화형 학습) |
 | Script | **scripts/bootstrap.sh** | OpenSpec + 런타임 + TDD 규율 한 방 셋업 |
 
 ```
 spec-driven-workflow/
-├── .claude-plugin/plugin.json
+├── .claude-plugin/{plugin.json, marketplace.json}
 ├── skills/
 │   ├── idea-to-plan/            # 기획 파이프라인 (SKILL.md + references 6종)
-│   └── agentic-coding-workflow/ # 방법론 (SKILL.md + references 2종)
-├── commands/plan.md
+│   ├── agentic-coding-workflow/ # 방법론 (SKILL.md + references 2종)
+│   └── workflow-tutor/          # 대화형 온보딩 튜터
+├── commands/{plan.md, bootstrap.md, onboarding.md}
 ├── scripts/bootstrap.sh
 └── README.md
 ```
