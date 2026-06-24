@@ -8,6 +8,15 @@ manyfast의 "Manny" 기획 흐름과 OpenSpec/Superpowers 워크플로우를 하
             PRD·기능명세·유저플로우·와이어프레임   OpenSpec(What) + TDD(How)
 ```
 
+> **30초 요약** — Claude Code 사용자는 아래 두 줄이면 끝.
+> ```bash
+> claude plugin marketplace add jayj716/plugin-workflow-bootstrap
+> claude plugin install spec-driven-workflow@agentic-coding-workflow   # → 재시작
+> ```
+> 설치 후 처음이면 **`/onboarding`**, 기획 시작은 **`/plan`**. 자세한 건 [설치](#설치)·[사용](#사용).
+
+---
+
 ## 구성
 
 | 종류 | 이름 | 역할 |
@@ -38,13 +47,17 @@ spec-driven-workflow/                       # = 저장소 = 마켓플레이스
     └── scripts/bootstrap.sh
 ```
 
-> 세 마켓플레이스 카탈로그(Claude `.claude-plugin/` · Codex `.agents/plugins/` · Cursor `.cursor-plugin/`)가 모두
-> `plugins/spec-driven-workflow` 한 곳을 가리켜, 세 플랫폼이 **같은 소스**를 공유한다(중복 없음).
+> 세 마켓플레이스 카탈로그(Claude · Codex · Cursor)가 모두 `plugins/spec-driven-workflow`
+> 한 곳을 가리켜, 세 플랫폼이 **같은 소스**를 공유한다(중복 없음).
+
+---
 
 ## 설치
 
-하나의 저장소를 **Claude Code · Codex · Cursor 플러그인**, 그리고 **`npx skills`** 로 설치할 수 있다.
-**공개 GitHub 저장소**라 `owner/repo` 단축경로가 그대로 통한다 — 저장소: **`jayj716/plugin-workflow-bootstrap`** (https://github.com/jayj716/plugin-workflow-bootstrap).
+한 저장소를 **Claude Code · Codex · Cursor 플러그인**, 또는 가볍게 **`npx skills`** 로 설치할 수 있다.
+공개 GitHub 저장소라 `owner/repo` 단축경로가 그대로 통한다.
+
+> 저장소: **`jayj716/plugin-workflow-bootstrap`** — https://github.com/jayj716/plugin-workflow-bootstrap
 
 ### Claude Code (권장 · 팀원용)
 
@@ -53,40 +66,41 @@ claude plugin marketplace add jayj716/plugin-workflow-bootstrap
 claude plugin install spec-driven-workflow@agentic-coding-workflow
 ```
 
-그다음 **Claude 재시작**. 설치되면 커맨드 `/plan`·`/bootstrap`·`/onboarding` 과 스킬
+그다음 **Claude 재시작**. 커맨드 `/plan`·`/bootstrap`·`/onboarding` 과 스킬
 `idea-to-plan`·`agentic-coding-workflow`·`workflow-tutor` 가 활성화되고, 의존성인 **Superpowers**도 자동 설치된다.
 
-- 각 명령은 `~/.claude/settings.json`에 영구 기록되어 이후 모든 세션에서 자동 로드된다.
-- 식별자: `spec-driven-workflow@agentic-coding-workflow` (마켓플레이스 이름은 저장소명과 별개). 전제: Claude Code **v2.1.110+**(의존성 자동설치).
-
-> 처음이라면 설치 후 **`/onboarding`** 으로 대화형 학습부터 시작하면 좋다.
+- 각 명령은 `~/.claude/settings.json`에 영구 기록 → 이후 모든 세션에서 자동 로드.
+- 식별자는 `spec-driven-workflow@agentic-coding-workflow` (마켓플레이스 이름은 저장소명과 별개).
+- 전제: Claude Code **v2.1.110+** (의존성 자동설치).
+- 처음이라면 설치 후 **`/onboarding`** 으로 대화형 학습부터.
 
 ### Codex
 
-`codex plugin marketplace add` 는 `owner/repo`·HTTPS·SSH 를 모두 받는다:
+`codex plugin marketplace add` 는 `owner/repo`·HTTPS·SSH 를 모두 받는다.
 
 ```bash
 codex plugin marketplace add jayj716/plugin-workflow-bootstrap
 codex plugin add spec-driven-workflow@agentic-coding-workflow
 ```
 
-Codex는 `.agents/plugins/marketplace.json` 카탈로그를 읽어 `plugins/spec-driven-workflow`(같은 소스)를 설치한다.
-(Codex의 TDD 규율은 Superpowers가 아니라 `/bootstrap` 이 깔아 주는 `AGENTS.md` 규칙으로 강제되므로, Codex 플러그인엔 Superpowers 의존성이 없다.)
+`.agents/plugins/marketplace.json` 카탈로그를 읽어 `plugins/spec-driven-workflow`(같은 소스)를 설치한다.
+Codex의 TDD 규율은 Superpowers가 아니라 `/bootstrap` 이 깔아 주는 `AGENTS.md` 규칙으로 강제되므로,
+Codex 플러그인엔 Superpowers 의존성이 없다.
 
 ### Cursor (2.5+)
 
-Cursor 2.5부터 플러그인 마켓플레이스를 지원한다(`.cursor-plugin/marketplace.json` 카탈로그 + `plugins/spec-driven-workflow/.cursor-plugin/plugin.json`, 같은 `skills/`·`commands/` 재사용). 설치는 **에디터 GUI**로 한다:
+Cursor 2.5부터 플러그인 마켓플레이스를 지원한다(`.cursor-plugin/marketplace.json` + `plugins/spec-driven-workflow/.cursor-plugin/plugin.json`, 같은 `skills/`·`commands/` 재사용). 설치는 **에디터 GUI**로 한다:
 
-- 에디터에서 `/add-plugin` 실행, 또는 `cursor.com/marketplace`에서 추가. 공개 GitHub 저장소이므로 git 소스로 추가를 시도할 수 있다.
+- 에디터에서 `/add-plugin` 실행, 또는 `cursor.com/marketplace`에서 추가(공개 저장소라 git 소스로 추가 가능).
 
-> ⚠️ Cursor는 CLI 설치 명령이 없어(GUI 앱) 이 매니페스트는 **공식 스키마대로 구성**했으나 로컬에서 설치 검증은 못 했다 — Cursor 2.5+ 에디터에서 확인 필요. 잘 안 되면 아래 **`npx skills`** 로 Cursor에 스킬을 바로 설치하면 된다(`~/.cursor/skills`).
+> ⚠️ Cursor는 CLI 설치 명령이 없어(GUI 앱) 매니페스트는 **공식 스키마대로 구성**했으나 로컬 설치 검증은 못 했다 — Cursor 2.5+ 에디터에서 확인 필요. 안 되면 아래 **`npx skills`** 로 스킬만 바로 설치(`~/.cursor/skills`).
 
 ### 그 외 에이전트 — `npx skills` (Vercel Labs)
 
-[`skills` CLI](https://github.com/vercel-labs/skills)는 저장소의 `SKILL.md`들을 읽어 설치 에이전트(.claude/skills, .agents/skills, ~/.cursor/skills 등)에 넣는다. 스킬 3종만 가볍게 쓰고 싶을 때:
+[`skills` CLI](https://github.com/vercel-labs/skills)는 저장소의 `SKILL.md`들을 읽어 설치 에이전트(.claude/skills, .agents/skills, ~/.cursor/skills 등)에 넣는다. 스킬 3종만 가볍게 쓸 때:
 
 ```bash
-npx skills add jayj716/plugin-workflow-bootstrap   # 스킬·에이전트 대화형 선택 (--list 목록, -y 비대화형, --global 전역)
+npx skills add jayj716/plugin-workflow-bootstrap   # 대화형 선택 (--list 목록, -y 비대화형, --global 전역)
 ```
 
 > `npx skills` 는 SKILL.md만 설치한다(커맨드·bootstrap·의존성 제외). 전체 워크플로우는 Claude/Codex 플러그인 설치를 권장.
@@ -101,18 +115,50 @@ claude --plugin-dir ~/spec-driven-workflow/plugins/spec-driven-workflow
 
 세션 중 소스를 고쳤으면 `/reload-plugins`(편집분 반영; 새 커맨드 추가는 재시작 필요).
 
+---
+
 ## 사용
 
 ```
 /plan 동네 클라이밍장 회원용 볼더링 기록 앱을 만들고 싶어
 ```
 
-또는 그냥 자연어로 "이런 아이디어가 있는데 기획해줘"라고 하면 `idea-to-plan` 스킬이 트리거된다.
+또는 그냥 "이런 아이디어가 있는데 기획해줘"라고 하면 `idea-to-plan` 스킬이 트리거된다.
 기획이 끝나면 "이제 구현하자"로 `agentic-coding-workflow`(OpenSpec/TDD)로 넘어간다.
+
+---
+
+## 이미 부트스트랩된 레포를 클론했을 때
+
+> 핵심: **레포에 따라오는 것**과 **머신에 한 번 깔아야 하는 것**은 다르다.
+
+| | 무엇 | 클론하면? |
+|---|---|---|
+| **레포에 커밋됨** | `openspec/` 명세, 루트 `project.md`, `AGENTS.md`·`.cursor/rules` | ✅ 같이 따라옴 |
+| **머신에 1회 설치** | 런타임 CLI, OpenSpec CLI(전역 설치 시), **Superpowers**, 플러그인 본체 | ❌ 따로 설치 |
+
+그래서 팀원이 **이미 부트스트랩된 프로젝트**를 클론하면 명세·규약은 다 있지만 도구가 비어 있을 수 있다.
+순서대로 두 단계면 메워진다:
+
+```bash
+# 1) 플러그인 설치 (한 번) → Superpowers·/bootstrap·스킬이 함께 따라온다
+claude plugin marketplace add jayj716/plugin-workflow-bootstrap
+claude plugin install spec-driven-workflow@agentic-coding-workflow   # → 재시작
+
+# 2) 클론한 프로젝트에서 /bootstrap 실행 → update 모드로 빠진 것만 채운다
+#    (openspec/ 가 있으면 자동으로 update 모드: OpenSpec CLI·런타임 점검·설치, 검증)
+/bootstrap
+```
+
+- **Superpowers는 1번에 딸려 온다** — 플러그인의 의존성이라 플러그인을 깔면 자동 설치된다. 자동 설치가 안 되면 수동으로: `/plugin install superpowers@claude-plugins-official`.
+- **OpenSpec을 project 스코프로 깐 레포**라면(= `package.json`의 devDependency) `npm install` 이 CLI를 복원한다. `/bootstrap` 도 같은 일을 한다.
+- bootstrap은 **멱등(idempotent)** — 여러 번 돌려도 안전하고, 이미 있는 건 건드리지 않는다.
+
+---
 
 ## 릴리스 / 업데이트
 
-이 저장소가 곧 마켓플레이스다. 두 카탈로그가 `./plugins/spec-driven-workflow`를 가리킨다. 고친 뒤:
+이 저장소가 곧 마켓플레이스다. 세 카탈로그가 `./plugins/spec-driven-workflow`를 가리킨다. 고친 뒤:
 
 ```bash
 # 1) 버전을 올린다 — 네 곳을 같은 값으로:
@@ -125,6 +171,7 @@ git commit -am "vX.Y.Z: ..." && git push
 ```
 
 > ⚠️ **version bump 필수.** 캐시가 버전별로 고정되어, 버전을 올리지 않으면 팀원에게 갱신이 가지 않는다.
+> (Codex·Cursor 카탈로그엔 버전 필드가 없어 위 네 곳만 올리면 된다.)
 
 **팀원 업데이트:**
 
@@ -133,14 +180,18 @@ claude plugin marketplace update agentic-coding-workflow
 claude plugin update spec-driven-workflow@agentic-coding-workflow   # → 재시작
 ```
 
+---
+
 ## 의존성
 
-- **Superpowers (자동 설치)** — TDD 규율(RED→GREEN→REFACTOR)을 강제하는 플러그인. `plugin.json`의
-  `dependencies`에 `superpowers@claude-plugins-official`로 선언돼 있어, 이 플러그인을 설치하면 **함께 자동 설치**된다.
-  (Claude Code v2.1.110+ 필요. 다른 마켓플레이스라 `marketplace.json`의 `allowCrossMarketplaceDependenciesOn`도 선언됨.)
+- **Superpowers (자동 설치)** — TDD 규율(RED→GREEN→REFACTOR)을 강제하는 플러그인.
+  `plugin.json`의 `dependencies`에 `superpowers@claude-plugins-official`로 선언돼 있어, 이 플러그인을 설치하면 **함께 자동 설치**된다.
+  Claude Code v2.1.110+ 필요. 다른 마켓플레이스라 `marketplace.json`의 `allowCrossMarketplaceDependenciesOn`도 선언됨.
   자동 설치가 안 되면 수동으로: `/plugin install superpowers@claude-plugins-official`.
 - **OpenSpec (별도)** — `agentic-coding-workflow`의 `/opsx:*` 슬래시 커맨드는 OpenSpec이 자체 설치한다
   (`openspec init`/`update`, 또는 번들 `/bootstrap`). 이 플러그인은 방법론·문서·bootstrap만 제공하고 OpenSpec 도구 자체는 번들하지 않는다.
+
+---
 
 ## 크레딧
 
